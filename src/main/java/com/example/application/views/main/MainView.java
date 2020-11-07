@@ -11,6 +11,7 @@ import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
@@ -50,6 +51,16 @@ public class MainView extends AppLayout {
     }
 
     private Component createHeaderContent() {
+        Anchor logout = new Anchor("logout", "Log out");
+
+
+
+
+
+
+       // addToNavbar(header);
+
+
         HorizontalLayout layout = new HorizontalLayout();
         layout.setId("header");
         layout.getThemeList().set("dark", true);
@@ -59,7 +70,7 @@ public class MainView extends AppLayout {
         layout.add(new DrawerToggle());
         viewTitle = new H1();
         layout.add(viewTitle);
-        layout.add(new Image("images/user.svg", "Avatar"));
+        layout.add(new Image("images/user.svg", "Avatar"),logout);
         return layout;
     }
 
@@ -80,6 +91,7 @@ public class MainView extends AppLayout {
     }
 
     private Tabs createMenu() {
+
         final Tabs tabs = new Tabs();
         tabs.setOrientation(Tabs.Orientation.VERTICAL);
         tabs.addThemeVariants(TabsVariant.LUMO_MINIMAL);

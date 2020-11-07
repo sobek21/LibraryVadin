@@ -15,9 +15,10 @@ public class User  {
 
     private String firstName;
     private String lastName;
-    private String userName;
+    private String username;
     private String email;
     private String password;
+    private String role;
 
     @OneToMany(mappedBy="user",fetch = FetchType.EAGER )
     private Set<Book> books;
@@ -25,14 +26,15 @@ public class User  {
     public User() {
     }
 
-    public User(Long userID, String firstName, String lastName, String userName, String email, String password, Set<Book> books) {
-        this.userID = userID;
+    public User( String firstName, String lastName, String username, String email, String password,String role) {
+
         this.firstName = firstName;
         this.lastName = lastName;
-        this.userName = userName;
+        this.username = username;
         this.email = email;
         this.password = password;
-        this.books = books;
+        this.role = role;
+
     }
 
     public Long getUserID() {
@@ -59,12 +61,12 @@ public class User  {
         this.lastName = lastName;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
 
     public String getEmail() {
@@ -83,6 +85,14 @@ public class User  {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public Set<Book> getBooks() {
         return books;
     }
@@ -90,4 +100,5 @@ public class User  {
     public void setBooks(Set<Book> books) {
         this.books = books;
     }
+
 }

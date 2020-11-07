@@ -20,13 +20,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RouteAlias(value = "", layout = MainView.class)
 public class HelloWorldView extends VerticalLayout {
 
+    private String suggestTitle;
+
+
+
+
+
     Grid<VolumeInfo> grid = new Grid<>(VolumeInfo.class);
 
 
     Label name = new Label("Suggest Name");
-    Label description = new Label("Description");
-    TextField textField = new TextField("Szukaj ksiązki");
-    Button button = new Button("Szukaj");
+    Label description = new Label();
+    TextField textField = new TextField();
+    Button button = new Button("Search");
 
     H1 h1 = new H1("GOOGLE BOOKS SEARCH API");
 
@@ -48,9 +54,12 @@ public class HelloWorldView extends VerticalLayout {
         verticalLayout.add(bookGrid);
         verticalLayout.setSizeFull();
 
+
+
+
         horizontalLayout.add(textField,button);
 
-
+setAlignSelf(Alignment.CENTER,horizontalLayout);
 setAlignSelf(Alignment.CENTER,h1);
 
 
@@ -70,8 +79,11 @@ add(description);
         }else {
             bookGrid.setVisible(true);
             bookGrid.setItems(bookSearchService.getBooks(textField.getValue()));
-            description.setText(String.valueOf(bookSearchService.getBooks(textField.getValue()).getDescription()));
+            description.setText("Description: "+
+                    String.valueOf(bookSearchService.getBooks(textField.getValue()).getDescription()));
             name.setText(bookSearchService.getBooks(textField.getValue()).getTitle());
+
+
         }
     }
 }
