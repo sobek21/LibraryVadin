@@ -1,6 +1,6 @@
 package com.example.application.security;
 
-import com.example.application.LoginView;
+import com.example.application.views.login.LoginView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.server.ServiceInitEvent;

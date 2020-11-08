@@ -26,15 +26,14 @@ public class User  {
     public User() {
     }
 
-    public User( String firstName, String lastName, String username, String email, String password,String role) {
-
+    public User(String firstName, String lastName, String username, String email, String password, String role, Set<Book> books) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.email = email;
         this.password = password;
         this.role = role;
-
+        this.books = books;
     }
 
     public Long getUserID() {
@@ -101,4 +100,18 @@ public class User  {
         this.books = books;
     }
 
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userID=" + userID +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", books=" + books +
+                '}';
+    }
 }

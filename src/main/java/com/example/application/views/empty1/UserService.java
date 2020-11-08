@@ -41,4 +41,5 @@ public class UserService implements CrudListener<User> {
     public User findByUserName(String name) {
         return userRepository.findByUsername(name);
     }
+
 }

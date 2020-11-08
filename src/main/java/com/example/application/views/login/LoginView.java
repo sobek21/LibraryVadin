@@ -1,4 +1,4 @@
-package com.example.application;
+package com.example.application.views.login;
 
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
