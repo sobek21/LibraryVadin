@@ -1,6 +1,6 @@
 package com.example.application.views.login;
 
-import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.html.Anchor;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.login.LoginForm;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -16,7 +16,9 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
     private LoginForm login = new LoginForm();
 
-    Button register = new Button("Register");
+    Anchor anchor = new Anchor("Register", "Register");
+
+
 
     public LoginView(){
         addClassName("login-view");
@@ -24,9 +26,11 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
 
+
+
         login.setAction("login");
 
-        add(new H1("Vaadin CRM"), login,register);
+        add(new H1("Vaadin CRM"), login,anchor);
     }
 
     @Override

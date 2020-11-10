@@ -8,7 +8,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.Route;
 
 @Route("Register")
-public class RegisterView extends VerticalLayout {
+public class Register extends VerticalLayout {
 
     TextField firstname = new TextField("firstname");
     TextField lastname = new TextField("firstname");
@@ -17,10 +17,14 @@ public class RegisterView extends VerticalLayout {
     TextField password = new TextField("firstname");
     Button button = new Button("Register");
 
-    public RegisterView() {
+    public Register() {
 
 setSizeFull();
 setAlignItems(Alignment.CENTER);
         add(new H1("Register | Library"),firstname,lastname,username,email,password,button);
     }
-}
+
+
+
+    }
+

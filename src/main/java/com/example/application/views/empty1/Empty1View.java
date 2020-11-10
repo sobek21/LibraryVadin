@@ -1,6 +1,5 @@
 package com.example.application.views.empty1;
 
-import com.example.application.views.empty.Book;
 import com.example.application.views.empty.BookService;
 import com.example.application.views.main.MainView;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -8,8 +7,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.vaadin.crudui.crud.impl.GridCrud;
-
-import java.util.Set;
 
 @Route(value = "empty1", layout = MainView.class)
 @PageTitle("UserList")
@@ -42,10 +39,7 @@ conigureGridCrud();
 
         crud.getGrid().removeColumnByKey("books");
 
-        crud.getGrid().addColumn(book -> {
 
-                Set<Book> books = bookService.f
-                return book1 == null ? "-" :
 
     }
 

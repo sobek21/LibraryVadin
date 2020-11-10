@@ -29,7 +29,7 @@ public class HelloWorldView extends VerticalLayout {
     Grid<VolumeInfo> grid = new Grid<>(VolumeInfo.class);
 
 
-    Label name = new Label("Suggest Name");
+    Label name = new Label();
     Label description = new Label();
     TextField textField = new TextField();
     Button button = new Button("Search");

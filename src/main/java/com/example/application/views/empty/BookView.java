@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.crudui.crud.impl.GridCrud;
 
 
+
 @Route(value = "empty", layout = MainView.class)
 @PageTitle("BookList")
 @CssImport("./styles/views/empty/empty-view.css")
@@ -64,20 +65,25 @@ setSizeFull();
     }
     public void configureGridCrud() {
 
+
         crud.setAddOperation(bookService::add);
         crud.setFindAllOperation(bookService::findAll);
         crud.setDeleteOperation(bookService::delete);
         crud.setUpdateOperation(bookService::update);
         crud.getCrudFormFactory().setUseBeanValidation(true);
         crud.getGrid().removeColumnByKey("user");
-        crud.getGrid().addColumn( user ->
-        {
-        User user1 = user.getUser();
-        return user1 == null ? "-" : user1.getUsername();
+        if (false) {
 
-        }).setHeader("User");
+            crud.getGrid().addColumn(user ->
+            {
+                User user1 = user.getUser();
+                return user1 == null ? "-" : user1.getUsername();
 
+            }).setHeader("User");
+        }
     }
+
+
     public void wypozycz() {
 
        String name = (VaadinServletService.getCurrentServletRequest().getUserPrincipal().getName());
