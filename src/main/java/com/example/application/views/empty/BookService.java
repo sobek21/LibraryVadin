@@ -43,4 +43,11 @@ public class BookService implements CrudListener<Book> {
     public void addFavorites(Book book, Principal principal) {
 
     }
+    public List<Book> findAll(String stringFilter) {
+        if (stringFilter == null || stringFilter.isEmpty()) {
+            return bookRepository.findAll();
+        } else {
+            return bookRepository.search(stringFilter);
+        }
+    }
 }

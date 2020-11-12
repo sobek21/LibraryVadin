@@ -3,6 +3,7 @@ package com.example.application.views.empty1;
 import com.example.application.views.empty.Book;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @Entity
@@ -13,9 +14,13 @@ public class User  {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userID;
 
+    @NotEmpty
     private String firstName;
+    @NotEmpty
     private String lastName;
+    @NotEmpty
     private String username;
+    @NotEmpty
     private String email;
     private String password;
     private String role;

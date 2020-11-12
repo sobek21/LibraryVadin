@@ -8,7 +8,9 @@ import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinServletService;
@@ -32,6 +34,8 @@ Label label = new Label();
 
 HorizontalLayout horizontalLayout = new HorizontalLayout();
 
+    private TextField filterText = new TextField();
+
 
 
 
@@ -53,7 +57,11 @@ private UserService userService;
 
         button1.addClickListener(buttonClickEvent -> wypozycz());
 
-        add(crud,horizontalLayout);
+
+
+       configureFilter();
+
+        add(filterText,crud,horizontalLayout);
 setSizeFull();
 
 
@@ -103,9 +111,23 @@ setSizeFull();
 
     }
 
-    public void setBook() {
+    public void dodajUlubionych() {
 
 
     }
+    private void configureFilter() {
+        filterText.setPlaceholder("Filter by name or author...");
+        filterText.setClearButtonVisible(true);
+        filterText.setValueChangeMode(ValueChangeMode.LAZY);
+        filterText.addValueChangeListener(e -> updateList());
+    }
+
+
+
+    private void updateList() {
+    crud.getGrid().setItems(bookService.findAll(filterText.getValue()));
+
+    }
+
 
 }
