@@ -4,6 +4,8 @@ import com.example.application.views.empty.BookService;
 import com.example.application.views.main.MainView;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import org.vaadin.crudui.crud.impl.GridCrud;
@@ -12,6 +14,8 @@ import org.vaadin.crudui.crud.impl.GridCrud;
 @PageTitle("UserList")
 @CssImport("./styles/views/empty1/empty1-view.css")
 public class Empty1View extends VerticalLayout {
+
+    private TextField filterText = new TextField();
 
     GridCrud<User> crud = new GridCrud<>(User.class);
 
@@ -26,8 +30,9 @@ public class Empty1View extends VerticalLayout {
 
 
 conigureGridCrud();
+configureFilter();
 
-        add(crud);
+        add(filterText,crud);
         setSizeFull();
     }
     public void conigureGridCrud() {
@@ -40,6 +45,19 @@ conigureGridCrud();
         crud.getGrid().removeColumnByKey("books");
 
 
+
+    }
+    private void configureFilter() {
+        filterText.setPlaceholder("Filter by email or username...");
+        filterText.setClearButtonVisible(true);
+        filterText.setValueChangeMode(ValueChangeMode.LAZY);
+        filterText.addValueChangeListener(e -> updateList());
+    }
+
+
+
+    private void updateList() {
+        crud.getGrid().setItems(userService.findAll(filterText.getValue()));
 
     }
 
