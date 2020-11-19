@@ -103,10 +103,10 @@ public class VolumeInfo {
     public String toString() {
         return
                 "title='" + title + '\'' +
-                ", authors=" + authors +
-                ", publisher='" + publisher + '\'' +
-                ", publishedDate='" + publishedDate + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+                        ", authors=" + authors +
+                        ", publisher='" + publisher + '\'' +
+                        ", publishedDate='" + publishedDate + '\'' +
+                        ", description='" + description + '\'' +
+                        '}';
     }
 }

@@ -14,16 +14,13 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 import org.springframework.beans.factory.annotation.Autowired;
 
-@Route(value = "hello-world", layout = MainView.class)
-@PageTitle("Hello World")
+@Route(value = "BookSearch", layout = MainView.class)
+@PageTitle("BookSearch")
 @CssImport(value = "./styles/views/helloworld/google.css")
 @RouteAlias(value = "", layout = MainView.class)
 public class HelloWorldView extends VerticalLayout {
 
     private String suggestTitle;
-
-
-
 
 
     Grid<VolumeInfo> grid = new Grid<>(VolumeInfo.class);
@@ -48,38 +45,34 @@ public class HelloWorldView extends VerticalLayout {
     public HelloWorldView(BookSearchService bookSearchService) {
         this.bookSearchService = bookSearchService;
         addClassName("user-view");
-        bookGrid.setColumns("authors","publisher","publishedDate","categories","pageCount");
+        bookGrid.setColumns("authors", "publisher", "publishedDate", "categories", "pageCount");
         bookGrid.setHeightByRows(true);
         bookGrid.setVisible(false);
         verticalLayout.add(bookGrid);
         verticalLayout.setSizeFull();
 
 
+        horizontalLayout.add(textField, button);
 
-
-        horizontalLayout.add(textField,button);
-
-setAlignSelf(Alignment.CENTER,horizontalLayout);
-setAlignSelf(Alignment.CENTER,h1);
-
-
+        setAlignSelf(Alignment.CENTER, horizontalLayout);
+        setAlignSelf(Alignment.CENTER, h1);
 
 
         button.addClickListener(buttonClickEvent -> refresh());
 
-add(h1,horizontalLayout,name,verticalLayout);
-add(description);
+        add(h1, horizontalLayout, name, verticalLayout);
+        add(description);
 
 
     }
 
     public void refresh() {
-        if (textField.getValue()== null || textField.getValue()=="") {
+        if (textField.getValue() == null || textField.getValue() == "") {
             bookGrid.setVisible(false);
-        }else {
+        } else {
             bookGrid.setVisible(true);
             bookGrid.setItems(bookSearchService.getBooks(textField.getValue()));
-            description.setText("Description: "+
+            description.setText("Description: " +
                     String.valueOf(bookSearchService.getBooks(textField.getValue()).getDescription()));
             name.setText(bookSearchService.getBooks(textField.getValue()).getTitle());
 

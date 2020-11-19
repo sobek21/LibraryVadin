@@ -1,14 +1,14 @@
-package com.example.application.views.empty1;
-
-import com.example.application.views.empty.Book;
+package com.example.application.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
 @Entity
-@Table(name = "USERS")
-public class User  {
+
+@Table(name = "USERS",uniqueConstraints={@UniqueConstraint(columnNames={"username"})})
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,14 +18,17 @@ public class User  {
     private String firstName;
     @NotEmpty
     private String lastName;
+    @Column(name = "username")
     @NotEmpty
     private String username;
     @NotEmpty
+    @Email
     private String email;
     private String password;
     private String role;
 
-    @OneToMany(mappedBy="user",fetch = FetchType.EAGER )
+
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Book> books;
 
     public User() {
@@ -118,5 +121,35 @@ public class User  {
                 ", role='" + role + '\'' +
                 ", books=" + books +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        User user = (User) o;
+
+        if (userID != null ? !userID.equals(user.userID) : user.userID != null) return false;
+        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
+        if (username != null ? !username.equals(user.username) : user.username != null) return false;
+        if (email != null ? !email.equals(user.email) : user.email != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (role != null ? !role.equals(user.role) : user.role != null) return false;
+        return books != null ? books.equals(user.books) : user.books == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = userID != null ? userID.hashCode() : 0;
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (role != null ? role.hashCode() : 0);
+        result = 31 * result + (books != null ? books.hashCode() : 0);
+        return result;
     }
 }

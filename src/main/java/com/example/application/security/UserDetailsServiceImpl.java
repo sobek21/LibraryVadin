@@ -1,7 +1,7 @@
 package com.example.application.security;
 
-import com.example.application.views.empty1.User;
-import com.example.application.views.empty1.UserRepository;
+import com.example.application.domain.User;
+import com.example.application.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetails;

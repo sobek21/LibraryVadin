@@ -1,7 +1,9 @@
-package com.example.application.views.empty;
+package com.example.application.views.bookMenu;
 
-import com.example.application.views.empty1.User;
-import com.example.application.views.empty1.UserService;
+import com.example.application.domain.Book;
+import com.example.application.service.BookService;
+import com.example.application.domain.User;
+import com.example.application.service.UserService;
 import com.example.application.views.main.MainView;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -18,59 +20,52 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.crudui.crud.impl.GridCrud;
 
 
-
 @Route(value = "empty", layout = MainView.class)
 @PageTitle("BookList")
 @CssImport("./styles/views/empty/empty-view.css")
 public class BookView extends VerticalLayout {
 
-Button button = new Button("Dodaj do ulubionych");
-Button button1 = new Button("Wypożycz");
-Label label = new Label();
+    Button button = new Button("Dodaj do ulubionych");
+    Button button1 = new Button("Wypożycz");
+    Label label = new Label();
 
     GridCrud<Book> crud = new GridCrud<>(Book.class);
 
-    private Binder <Book>binder = new Binder<>(Book.class);
+    private Binder<Book> binder = new Binder<>(Book.class);
 
-HorizontalLayout horizontalLayout = new HorizontalLayout();
+    HorizontalLayout horizontalLayout = new HorizontalLayout();
 
     private TextField filterText = new TextField();
 
 
+    private BookService bookService;
+    private UserService userService;
+
+    @Autowired
+    public BookView(BookService bookService, UserService userService) {
+        this.bookService = bookService;
+        this.userService = userService;
 
 
+        configureGridCrud();
 
-
-private BookService bookService;
-private UserService userService;
-
-   @Autowired
-    public BookView(BookService bookService,UserService userService) {
-       this.bookService=bookService;
-       this.userService=userService;
-
-
-       configureGridCrud();
-
-        horizontalLayout.add(button,button1,label);
+        horizontalLayout.add(button, button1, label);
         button.addClickListener(buttonClickEvent -> label.setText("Dodano do ulubionych"));
 
         button1.addClickListener(buttonClickEvent -> wypozycz());
 
 
+        configureFilter();
 
-       configureFilter();
-
-        add(filterText,crud,horizontalLayout);
-setSizeFull();
-
+        add(filterText, crud, horizontalLayout);
+        setSizeFull();
 
 
-       crud.getGrid().asSingleSelect().addValueChangeListener(event -> binder.setBean(event.getValue()));
-
+        crud.getGrid().asSingleSelect().addValueChangeListener(event -> binder.setBean(event.getValue()));
 
 
     }
+
     public void configureGridCrud() {
 
 
@@ -78,6 +73,9 @@ setSizeFull();
         crud.setFindAllOperation(bookService::findAll);
         crud.setDeleteOperation(bookService::delete);
         crud.setUpdateOperation(bookService::update);
+
+        crud.getGrid().getColumnByKey("bookID").setVisible(false);
+
         crud.getCrudFormFactory().setUseBeanValidation(true);
         crud.getGrid().removeColumnByKey("user");
         if (false) {
@@ -94,7 +92,7 @@ setSizeFull();
 
     public void wypozycz() {
 
-       String name = (VaadinServletService.getCurrentServletRequest().getUserPrincipal().getName());
+        String name = (VaadinServletService.getCurrentServletRequest().getUserPrincipal().getName());
 
         User user = userService.findByUserName(name);
 
@@ -106,15 +104,13 @@ setSizeFull();
         crud.refreshGrid();
 
 
-
-
-
     }
 
     public void dodajUlubionych() {
 
 
     }
+
     private void configureFilter() {
         filterText.setPlaceholder("Filter by name or author...");
         filterText.setClearButtonVisible(true);
@@ -123,9 +119,8 @@ setSizeFull();
     }
 
 
-
     private void updateList() {
-    crud.getGrid().setItems(bookService.findAll(filterText.getValue()));
+        crud.getGrid().setItems(bookService.findAll(filterText.getValue()));
 
     }
 

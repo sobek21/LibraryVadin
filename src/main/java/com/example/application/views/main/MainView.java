@@ -1,6 +1,6 @@
 package com.example.application.views.main;
 
-import com.example.application.views.empty.BookView;
+import com.example.application.views.bookMenu.BookView;
 import com.example.application.views.empty1.Empty1View;
 import com.example.application.views.helloworld.HelloWorldView;
 import com.example.application.views.helloworld1.HelloWorld1View;
@@ -54,11 +54,7 @@ public class MainView extends AppLayout {
         Anchor logout = new Anchor("logout", "Log out");
 
 
-
-
-
-
-       // addToNavbar(header);
+        // addToNavbar(header);
 
 
         HorizontalLayout layout = new HorizontalLayout();
@@ -70,7 +66,7 @@ public class MainView extends AppLayout {
         layout.add(new DrawerToggle());
         viewTitle = new H1();
         layout.add(viewTitle);
-        layout.add(new Image("images/user.svg", "Avatar"),logout);
+        layout.add(new Image("images/user.svg", "Avatar"), logout);
         return layout;
     }
 
@@ -101,11 +97,11 @@ public class MainView extends AppLayout {
     }
 
     private Component[] createMenuItems() {
-        return new Tab[] {
-            createTab("Hello World", HelloWorldView.class),
-            createTab("Ulubione", HelloWorld1View.class),
-            createTab("BookList", BookView.class),
-            createTab("UserList", Empty1View.class)
+        return new Tab[]{
+                createTab("Search Book", HelloWorldView.class),
+                createTab("Ulubione", HelloWorld1View.class),
+                createTab("BookList", BookView.class),
+                createTab("UserList", Empty1View.class)
         };
     }
 

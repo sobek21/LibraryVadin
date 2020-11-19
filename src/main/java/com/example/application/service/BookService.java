@@ -1,6 +1,7 @@
-package com.example.application.views.empty;
+package com.example.application.service;
 
-import com.example.application.views.empty1.UserService;
+import com.example.application.domain.Book;
+import com.example.application.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.vaadin.crudui.crud.CrudListener;
@@ -14,35 +15,42 @@ public class BookService implements CrudListener<Book> {
     private BookRepository bookRepository;
     private UserService userService;
 
-@Autowired
-    public BookService(BookRepository bookRepository,UserService userService) {
-    this.userService=userService;
+    @Autowired
+    public BookService(BookRepository bookRepository, UserService userService) {
+        this.userService = userService;
 
-    this.bookRepository = bookRepository;
+        this.bookRepository = bookRepository;
     }
+
     @Override
-    public List<Book> findAll () {
+    public List<Book> findAll() {
 
         return bookRepository.findAll();
     }
+
     @Override
-    public Book add ( Book book) {
+    public Book add(Book book) {
         return bookRepository.save(book);
     }
+
     @Override
-    public Book update( Book book) {
+    public Book update(Book book) {
         return bookRepository.save(book);
     }
+
     @Override
-    public void delete ( Book book) {
+    public void delete(Book book) {
         bookRepository.delete(book);
     }
+
     private void filter() {
 
     }
+
     public void addFavorites(Book book, Principal principal) {
 
     }
+
     public List<Book> findAll(String stringFilter) {
         if (stringFilter == null || stringFilter.isEmpty()) {
             return bookRepository.findAll();

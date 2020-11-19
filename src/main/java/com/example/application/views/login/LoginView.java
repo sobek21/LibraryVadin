@@ -19,24 +19,22 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
     Anchor anchor = new Anchor("Register", "Register");
 
 
-
-    public LoginView(){
+    public LoginView() {
         addClassName("login-view");
         setSizeFull();
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
 
 
-
         login.setAction("login");
 
-        add(new H1("Vaadin CRM"), login,anchor);
+        add(new H1("Vaadin CRM"), login, anchor);
     }
 
     @Override
     public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
         // inform the user about an authentication error
-        if(beforeEnterEvent.getLocation()
+        if (beforeEnterEvent.getLocation()
                 .getQueryParameters()
                 .getParameters()
                 .containsKey("error")) {

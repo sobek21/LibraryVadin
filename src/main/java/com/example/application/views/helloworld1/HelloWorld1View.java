@@ -12,8 +12,9 @@ import com.vaadin.flow.router.Route;
 public class HelloWorld1View extends HorizontalLayout {
 
 
-
     public HelloWorld1View() {
+
+
 
     }
 

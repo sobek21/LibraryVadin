@@ -21,7 +21,7 @@ public class BookSearchService {
     @NotEmpty
     private String bookTitle = "";
 
-    private String url = "https://www.googleapis.com/books/v1/volumes?q="+bookTitle+"&key=AIzaSyDQ5S3dnCdR3YKAviYoyqsQFCekLK-1cZs&startIndex=1&maxResults=1";
+    private String url = "https://www.googleapis.com/books/v1/volumes?q=" + bookTitle + "&key=AIzaSyDQ5S3dnCdR3YKAviYoyqsQFCekLK-1cZs&startIndex=1&maxResults=1";
 
 
     public BookSearchService() {
@@ -37,25 +37,20 @@ public class BookSearchService {
     }
 
 
-
-
     public VolumeInfo getBooks(String bookTitle) {
-        this.bookTitle=bookTitle;
+        this.bookTitle = bookTitle;
 
 
         ResponseEntity<BookFact> bookFact = restTemplate.exchange(
-                "https://www.googleapis.com/books/v1/volumes?q="+bookTitle+"&startIndex=1&maxResults=1",
+                "https://www.googleapis.com/books/v1/volumes?q=" + bookTitle + "&startIndex=1&maxResults=1",
                 HttpMethod.GET,
                 HttpEntity.EMPTY,
                 BookFact.class);
 
 
-       VolumeInfo volumeInfo = bookFact.getBody().getItems().stream().findFirst().get().getVolumeInfo();
+        VolumeInfo volumeInfo = bookFact.getBody().getItems().stream().findFirst().get().getVolumeInfo();
 
         System.out.println(volumeInfo);
-
-
-
 
 
         return volumeInfo;

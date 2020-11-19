@@ -1,42 +1,37 @@
-package com.example.application.views.empty;
+package com.example.application.domain;
 
 
-import com.example.application.views.empty1.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-
 @Entity
-public class Book  {
+public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long bookID;
 
-
     @NotNull
-    @Column(name = "NAME", unique = true)
+    @Column(name = "NAME")
     private String name;
-
 
     @NotNull
     private String author;
 
-    private  BookType bookType;
+    private BookType bookType;
 
     private BookStatus bookStatus;
 
-    LocalDate localDate = LocalDate.now();
+    private LocalDate localDate = LocalDate.now();
 
-    public LocalDate getLocalDate() {
-        return localDate;
-    }
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
-    }
 
     public Book() {
     }
@@ -50,14 +45,18 @@ public class Book  {
         this.user = user;
     }
 
-    @ManyToOne
-    @JoinColumn(name="user_id")
-    private User user;
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
+    }
 
     public Long getBookID() {
         return bookID;
     }
-
 
 
     public User getUser() {

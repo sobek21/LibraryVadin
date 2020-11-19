@@ -1,6 +1,6 @@
 package com.example.application.security;
 
-import com.example.application.views.empty1.User;
+import com.example.application.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

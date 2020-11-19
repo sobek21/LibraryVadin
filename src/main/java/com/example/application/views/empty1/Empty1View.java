@@ -1,6 +1,8 @@
 package com.example.application.views.empty1;
 
-import com.example.application.views.empty.BookService;
+import com.example.application.domain.User;
+import com.example.application.service.BookService;
+import com.example.application.service.UserService;
 import com.example.application.views.main.MainView;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -23,18 +25,19 @@ public class Empty1View extends VerticalLayout {
 
     private BookService bookService;
 
-    public Empty1View(UserService userService,BookService bookService) {
+    public Empty1View(UserService userService, BookService bookService) {
 
-        this.bookService=bookService;
-        this.userService=userService;
+        this.bookService = bookService;
+        this.userService = userService;
 
 
-conigureGridCrud();
-configureFilter();
+        conigureGridCrud();
+        configureFilter();
 
-        add(filterText,crud);
+        add(filterText, crud);
         setSizeFull();
     }
+
     public void conigureGridCrud() {
         crud.setAddOperation(userService::add);
         crud.setFindAllOperation(userService::findAll);
@@ -45,15 +48,14 @@ configureFilter();
         crud.getGrid().removeColumnByKey("books");
 
 
-
     }
+
     private void configureFilter() {
         filterText.setPlaceholder("Filter by email or username...");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
     }
-
 
 
     private void updateList() {

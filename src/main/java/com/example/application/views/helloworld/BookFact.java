@@ -9,14 +9,9 @@ import java.util.List;
 public class BookFact {
 
 
-
     @SerializedName("items")
     @Expose
     private List<Item> items = null;
-
-
-
-
 
 
     public List<Item> getItems() {
@@ -32,6 +27,6 @@ public class BookFact {
     public String toString() {
         return
                 "items=" + items
-               ;
+                ;
     }
 }
