@@ -78,7 +78,7 @@ public class BookView extends VerticalLayout {
 
         crud.getCrudFormFactory().setUseBeanValidation(true);
         crud.getGrid().removeColumnByKey("user");
-        if (false) {
+        if (true) {
 
             crud.getGrid().addColumn(user ->
             {

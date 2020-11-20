@@ -5,9 +5,11 @@ import com.example.application.repository.UserRepository;
 import org.springframework.stereotype.Service;
 import org.vaadin.crudui.crud.CrudListener;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
 
+@Transactional
 @Service
 public class UserService implements CrudListener<User> {
 
