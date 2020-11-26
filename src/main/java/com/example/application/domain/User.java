@@ -13,6 +13,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long userID;
 
 
@@ -31,6 +32,9 @@ public class User {
     @Size(min=4 ,max = 100)
     private String password;
     private String role;
+
+
+
 
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
@@ -53,9 +57,6 @@ public class User {
         return userID;
     }
 
-    public void setUserID(Long userID) {
-        this.userID = userID;
-    }
 
     public String getFirstName() {
         return firstName;

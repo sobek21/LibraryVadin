@@ -74,7 +74,6 @@ public class Register extends VerticalLayout {
 
 
         user.setRole("USER");
-        user.setPassword(bCryptPasswordEncoder().encode(password.getValue()));
         if (binder.isValid()) {
             userService.add(user);
 

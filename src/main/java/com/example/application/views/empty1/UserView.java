@@ -15,7 +15,7 @@ import org.vaadin.crudui.crud.impl.GridCrud;
 @Route(value = "empty1", layout = MainView.class)
 @PageTitle("UserList")
 @CssImport("./styles/views/empty1/empty1-view.css")
-public class Empty1View extends VerticalLayout {
+public class UserView extends VerticalLayout {
 
     private TextField filterText = new TextField();
 
@@ -25,7 +25,7 @@ public class Empty1View extends VerticalLayout {
 
     private BookService bookService;
 
-    public Empty1View(UserService userService, BookService bookService) {
+    public UserView(UserService userService, BookService bookService) {
 
         this.bookService = bookService;
         this.userService = userService;
@@ -46,6 +46,7 @@ public class Empty1View extends VerticalLayout {
         crud.getCrudFormFactory().setUseBeanValidation(true);
 
         crud.getGrid().removeColumnByKey("books");
+        crud.getGrid().removeColumnByKey("userID");
 
 
     }
@@ -59,7 +60,7 @@ public class Empty1View extends VerticalLayout {
 
 
     private void updateList() {
-        crud.getGrid().setItems(userService.findAll(filterText.getValue()));
+        crud.getGrid().setItems(userService.findAllFilter(filterText.getValue()));
 
     }
 

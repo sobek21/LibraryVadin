@@ -1,7 +1,7 @@
 package com.example.application.views.main;
 
 import com.example.application.views.bookMenu.BookView;
-import com.example.application.views.empty1.Empty1View;
+import com.example.application.views.empty1.UserView;
 import com.example.application.views.helloworld.HelloWorldView;
 import com.example.application.views.helloworld1.HelloWorld1View;
 import com.vaadin.flow.component.Component;
@@ -101,7 +101,7 @@ public class MainView extends AppLayout {
                 createTab("Search Book", HelloWorldView.class),
                 createTab("Ulubione", HelloWorld1View.class),
                 createTab("BookList", BookView.class),
-                createTab("UserList", Empty1View.class)
+                createTab("UserList", UserView.class)
         };
     }
 

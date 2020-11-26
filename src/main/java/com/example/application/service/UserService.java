@@ -2,21 +2,30 @@ package com.example.application.service;
 
 import com.example.application.domain.User;
 import com.example.application.repository.UserRepository;
+import com.vaadin.flow.server.VaadinServletService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.vaadin.crudui.crud.CrudListener;
 
-import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.List;
 
-@Transactional
+
 @Service
 public class UserService implements CrudListener<User> {
 
+
     private UserRepository userRepository;
 
+    @Autowired
+    public BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
+
+
     }
 
     @Override
@@ -26,11 +35,13 @@ public class UserService implements CrudListener<User> {
 
     @Override
     public User add(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     @Override
     public User update(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -47,11 +58,23 @@ public class UserService implements CrudListener<User> {
         return userRepository.findByUsername(name);
     }
 
-    public List<User> findAll(String stringFilter) {
+    public List<User> findAllFilter(String stringFilter) {
         if (stringFilter == null || stringFilter.isEmpty()) {
             return userRepository.findAll();
         } else {
             return userRepository.search(stringFilter);
         }
+
+    }
+    public String getRole() {
+     String name = VaadinServletService.getCurrentServletRequest().getUserPrincipal().getName();
+      User user =  userRepository.findByUsername(name);
+      return user.getRole();
+
+    }
+    public User getUser() {
+        String name = VaadinServletService.getCurrentServletRequest().getUserPrincipal().getName();
+        User user =  userRepository.findByUsername(name);
+        return user;
     }
 }

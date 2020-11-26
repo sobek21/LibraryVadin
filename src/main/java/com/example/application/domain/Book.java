@@ -12,6 +12,7 @@ public class Book {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+
     private Long bookID;
 
     @NotNull
@@ -26,6 +27,8 @@ public class Book {
     private BookStatus bookStatus;
 
     private LocalDate localDate = LocalDate.now();
+
+    private LocalDate localDate1;
 
     @JsonIgnore
     @ManyToOne
@@ -84,9 +87,6 @@ public class Book {
         this.author = author;
     }
 
-    public void setBookID(Long bookID) {
-        this.bookID = bookID;
-    }
 
     public BookType getBookType() {
         return bookType;
@@ -104,5 +104,11 @@ public class Book {
         this.bookStatus = bookStatus;
     }
 
+    public LocalDate getLocalDate1() {
+        return localDate1;
+    }
 
+    public void setLocalDate1(LocalDate localDate1) {
+        this.localDate1 = localDate1;
+    }
 }
