@@ -4,7 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 
@@ -13,37 +13,32 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-
     private Long userID;
-
 
     @NotEmpty
     private String firstName;
+
     @NotEmpty
     private String lastName;
     @Column(name = "username")
-    @Size(min=4 ,max = 100)
+    @Size(min = 4, max = 100)
     private String username;
-
 
     @NotEmpty
     @Email
     private String email;
-    @Size(min=4 ,max = 100)
+    @Size(min = 4, max = 100)
     private String password;
+
     private String role;
 
-
-
-
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-    private Set<Book> books;
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<Book> books;
 
     public User() {
     }
 
-    public User(String firstName, String lastName, String username, String email, String password, String role, Set<Book> books) {
+    public User(String firstName, String lastName, String username, String email, String password, String role, List<Book> books) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
@@ -106,56 +101,15 @@ public class User {
         this.role = role;
     }
 
-    public Set<Book> getBooks() {
+    public List<Book> getBooks() {
         return books;
     }
 
-    public void setBooks(Set<Book> books) {
+    public void setBooks(List<Book> books) {
         this.books = books;
     }
 
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userID=" + userID +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role='" + role + '\'' +
-                ", books=" + books +
-                '}';
-    }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        User user = (User) o;
-
-        if (userID != null ? !userID.equals(user.userID) : user.userID != null) return false;
-        if (firstName != null ? !firstName.equals(user.firstName) : user.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(user.lastName) : user.lastName != null) return false;
-        if (username != null ? !username.equals(user.username) : user.username != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        if (role != null ? !role.equals(user.role) : user.role != null) return false;
-        return books != null ? books.equals(user.books) : user.books == null;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = userID != null ? userID.hashCode() : 0;
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (role != null ? role.hashCode() : 0);
-        result = 31 * result + (books != null ? books.hashCode() : 0);
-        return result;
-    }
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
-import java.util.Set;
+import java.util.List;
 
 @RestController
 public class Api {
@@ -29,7 +29,7 @@ public class Api {
     @JsonIgnore
     @JsonIgnoreProperties
     @GetMapping("/api/books")
-    public Set<Book> findAll (Principal principal) {
+    public List<Book> findAll (Principal principal) {
 
        User user1 = userService.findByUserName(principal.getName());
         return user1.getBooks();

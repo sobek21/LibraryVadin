@@ -1,24 +1,15 @@
-package com.example.application.domain;
+package com.example.application.dto;
 
+import com.example.application.domain.BookStatus;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-@Entity
-public class Book {
+public class BookDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long bookID;
 
-    private Long bookID;
-
-    @NotNull
     private String title;
 
-    @NotNull
     private String author;
 
     private String bookType;
@@ -29,16 +20,13 @@ public class Book {
 
     private LocalDate localDate1;
 
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "user_id")
-    private User user;
+    private UserDto user;
 
-
-    public Book() {
+    public BookDto() {
     }
 
-    public Book(@NotNull String title, @NotNull String author, String bookType, BookStatus bookStatus, LocalDate localDate, LocalDate localDate1, User user) {
+    public BookDto( String title, String author, String bookType, BookStatus bookStatus, LocalDate localDate, LocalDate localDate1, UserDto user) {
+
         this.title = title;
         this.author = author;
         this.bookType = bookType;
@@ -48,11 +36,11 @@ public class Book {
         this.user = user;
     }
 
-    public Long getBookID() {
+    public long getBookID() {
         return bookID;
     }
 
-    public void setBookID(Long bookID) {
+    public void setBookID(long bookID) {
         this.bookID = bookID;
     }
 
@@ -104,11 +92,11 @@ public class Book {
         this.localDate1 = localDate1;
     }
 
-    public User getUser() {
+    public UserDto getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UserDto user) {
         this.user = user;
     }
 }

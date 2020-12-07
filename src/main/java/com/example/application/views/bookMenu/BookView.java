@@ -120,15 +120,18 @@ public class BookView extends VerticalLayout {
             bookService.add(book);
 
             emailService.send(new Mail(
-                    userService.getUser().getEmail(),"Tak","Book: "+book.getName()+
-                    "Data oddania: "+book.getLocalDate1()
+                    userService.getUser().getEmail(),
+                    "Borrowed book",
+                    "You borrowed a book : "+book.getTitle()+
+                            "\n"+
+                    "Deadline: "+book.getLocalDate1()
 
             ));
 
 
             crud.refreshGrid();
         }else {
-            label.setText("Niedostepna"+book.getName()+userService.getRole());
+            label.setText("Niedostepna"+book.getTitle()+userService.getRole());
         }
 
 

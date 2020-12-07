@@ -1,6 +1,7 @@
 package com.example.application.views.empty1;
 
 import com.example.application.domain.User;
+import com.example.application.mapper.UserMapper;
 import com.example.application.service.BookService;
 import com.example.application.service.UserService;
 import com.example.application.views.main.MainView;
@@ -10,6 +11,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.crudui.crud.impl.GridCrud;
 
 @Route(value = "empty1", layout = MainView.class)
@@ -25,10 +27,14 @@ public class UserView extends VerticalLayout {
 
     private BookService bookService;
 
-    public UserView(UserService userService, BookService bookService) {
+    private UserMapper userMapper;
+
+    @Autowired
+    public UserView(UserService userService, BookService bookService,UserMapper userMapper) {
 
         this.bookService = bookService;
         this.userService = userService;
+        this.userMapper=userMapper;
 
 
         conigureGridCrud();

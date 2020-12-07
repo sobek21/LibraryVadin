@@ -47,7 +47,10 @@ public class UserService implements CrudListener<User> {
 
     @Override
     public void delete(User user) {
+       
+
         userRepository.delete(user);
+
     }
 
     public User findByFirstName(String name) {

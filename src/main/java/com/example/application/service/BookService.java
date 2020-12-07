@@ -1,6 +1,7 @@
 package com.example.application.service;
 
 import com.example.application.domain.Book;
+import com.example.application.mapper.BookMapper;
 import com.example.application.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,13 +15,15 @@ public class BookService implements CrudListener<Book> {
 
     private BookRepository bookRepository;
     private UserService userService;
+    private BookMapper bookMapper;
 
 
     @Autowired
-    public BookService(BookRepository bookRepository, UserService userService) {
+    public BookService(BookRepository bookRepository, UserService userService,BookMapper bookMapper) {
         this.userService = userService;
 
         this.bookRepository = bookRepository;
+        this.bookMapper =bookMapper;
     }
 
     @Override
@@ -40,7 +43,10 @@ public class BookService implements CrudListener<Book> {
     }
 
     @Override
+
     public void delete(Book book) {
+
+
         bookRepository.delete(book);
     }
 
