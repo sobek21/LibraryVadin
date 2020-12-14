@@ -1,14 +1,14 @@
 package com.example.application.views.main;
 
-import com.example.application.views.bookMenu.BookView;
-import com.example.application.views.empty1.UserView;
-import com.example.application.views.helloworld.HelloWorldView;
-import com.example.application.views.helloworld1.HelloWorld1View;
+import com.example.application.views.account.MyAccount;
+import com.example.application.views.bookList.BookView;
+import com.example.application.views.bookSearch.BookSearchView;
+import com.example.application.views.helloworld1.AdminPanelView;
+import com.example.application.views.userList.UserView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentUtil;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
-import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
 import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.html.Anchor;
@@ -40,7 +40,7 @@ public class MainView extends AppLayout {
     private final Tabs menu;
     private H1 viewTitle;
 
-    Button button = new Button("Hej");
+   // Button button = new Button("Hej");
 
     public MainView() {
 
@@ -52,6 +52,7 @@ public class MainView extends AppLayout {
 
     private Component createHeaderContent() {
         Anchor logout = new Anchor("logout", "Log out");
+
 
 
         // addToNavbar(header);
@@ -98,10 +99,11 @@ public class MainView extends AppLayout {
 
     private Component[] createMenuItems() {
         return new Tab[]{
-                createTab("Search Book", HelloWorldView.class),
-                createTab("Ulubione", HelloWorld1View.class),
+                createTab("Search Book", BookSearchView.class),
+                createTab("AdminPanel", AdminPanelView.class),
                 createTab("BookList", BookView.class),
                 createTab("UserList", UserView.class)
+                createTab("My Account", MyAccount.class)
         };
     }
 

@@ -7,7 +7,6 @@ import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
-
 @Table(name = "USERS",uniqueConstraints={@UniqueConstraint(columnNames={"username"})})
 public class User {
 
@@ -32,7 +31,7 @@ public class User {
 
     private String role;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
     private List<Book> books;
 
     public User() {
@@ -109,7 +108,7 @@ public class User {
         this.books = books;
     }
 
-
-
-
+    public void setUserID(Long userID) {
+        this.userID = userID;
+    }
 }

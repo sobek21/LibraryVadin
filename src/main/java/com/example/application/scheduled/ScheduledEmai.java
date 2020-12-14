@@ -25,7 +25,7 @@ public class ScheduledEmai {
 @Scheduled(cron = "0 0 10 * * *")
     public void test() {
     List<Book> bookList = bookService.findAll().stream()
-            .filter(a -> a.getLocalDate1().equals(LocalDate.now().minusDays(1)))
+            .filter(a -> a.getDeadline().equals(LocalDate.now().minusDays(1)))
             .collect(Collectors.toList());
 
     for (Book a: bookList) {
@@ -35,7 +35,7 @@ public class ScheduledEmai {
                        "Reminder",
                         "The deadline for handing over the book is approaching :"
                         +a.getTitle()
-                                +"\n"+ "Deadline:"+a.getLocalDate1())
+                                +"\n"+ "Deadline:"+a.getDeadline())
         );
 
     }

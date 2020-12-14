@@ -10,6 +10,7 @@ import org.vaadin.crudui.crud.CrudListener;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -18,6 +19,10 @@ public class UserService implements CrudListener<User> {
 
     private UserRepository userRepository;
 
+
+
+
+
     @Autowired
     public BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -25,6 +30,10 @@ public class UserService implements CrudListener<User> {
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
 
+
+    }
+    public Optional<User> findByID (long id) {
+        return userRepository.findById(id);
 
     }
 
@@ -37,6 +46,7 @@ public class UserService implements CrudListener<User> {
     public User add(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
+
     }
 
     @Override
@@ -47,17 +57,15 @@ public class UserService implements CrudListener<User> {
 
     @Override
     public void delete(User user) {
-       
-
         userRepository.delete(user);
-
     }
 
     public User findByFirstName(String name) {
+
         return userRepository.findByFirstName(name);
     }
 
-    public User findByUserName(String name) {
+    public Optional<User> findByUserName(String name) {
         return userRepository.findByUsername(name);
     }
 
@@ -69,15 +77,31 @@ public class UserService implements CrudListener<User> {
         }
 
     }
+
     public String getRole() {
-     String name = VaadinServletService.getCurrentServletRequest().getUserPrincipal().getName();
-      User user =  userRepository.findByUsername(name);
-      return user.getRole();
+        String name = VaadinServletService.getCurrentServletRequest().getUserPrincipal().getName();
+        Optional<User> user = userRepository.findByUsername(name);
+        return user.get().getRole();
 
     }
+
     public User getUser() {
         String name = VaadinServletService.getCurrentServletRequest().getUserPrincipal().getName();
-        User user =  userRepository.findByUsername(name);
-        return user;
+        Optional<User> user = userRepository.findByUsername(name);
+        return user.get();
     }
-}
+
+    public void registerUser(User user) {
+
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        userRepository.save(user);
+
+        }
+
+    }
+
+
+
+
+
+

@@ -7,7 +7,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
+@Transactional
 @Configuration
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -17,13 +21,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        Optional<User> user = userRepository.findByUsername(username);
 
-        if (user == null) {
+        if (user.get() == null) {
             throw new UsernameNotFoundException("Could not find user");
         }
 
-        return new MyUserDetails(user);
+        return new MyUserDetails(user.get());
     }
 
 }

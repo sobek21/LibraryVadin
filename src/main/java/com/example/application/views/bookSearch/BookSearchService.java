@@ -1,5 +1,7 @@
-package com.example.application.views.helloworld;
+package com.example.application.views.bookSearch;
 
+import com.example.application.domain.bookSearch.BookFact;
+import com.example.application.domain.bookSearch.VolumeInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
@@ -13,7 +15,7 @@ import javax.validation.constraints.NotNull;
 @Service
 public class BookSearchService {
 
-    private final String apiKey = "";//Enter your Api Key Here
+
 
     private RestTemplate restTemplate;
 

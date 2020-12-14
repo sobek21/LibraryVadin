@@ -25,9 +25,9 @@ public class Book {
 
     private BookStatus bookStatus;
 
-    private LocalDate localDate = LocalDate.now();
+    private LocalDate created = LocalDate.now();
 
-    private LocalDate localDate1;
+    private LocalDate deadline;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -43,8 +43,8 @@ public class Book {
         this.author = author;
         this.bookType = bookType;
         this.bookStatus = bookStatus;
-        this.localDate = localDate;
-        this.localDate1 = localDate1;
+        this.created = localDate;
+        this.deadline = localDate1;
         this.user = user;
     }
 
@@ -88,20 +88,20 @@ public class Book {
         this.bookStatus = bookStatus;
     }
 
-    public LocalDate getLocalDate() {
-        return localDate;
+    public LocalDate getCreated() {
+        return created;
     }
 
-    public void setLocalDate(LocalDate localDate) {
-        this.localDate = localDate;
+    public void setCreated(LocalDate localDate) {
+        this.created = localDate;
     }
 
-    public LocalDate getLocalDate1() {
-        return localDate1;
+    public LocalDate getDeadline() {
+        return deadline;
     }
 
-    public void setLocalDate1(LocalDate localDate1) {
-        this.localDate1 = localDate1;
+    public void setDeadline(LocalDate localDate1) {
+        this.deadline = localDate1;
     }
 
     public User getUser() {

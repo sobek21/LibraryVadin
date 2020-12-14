@@ -1,4 +1,4 @@
-package com.example.application.views.empty1;
+package com.example.application.views.userList;
 
 import com.example.application.domain.User;
 import com.example.application.mapper.UserMapper;
@@ -31,11 +31,9 @@ public class UserView extends VerticalLayout {
 
     @Autowired
     public UserView(UserService userService, BookService bookService,UserMapper userMapper) {
-
         this.bookService = bookService;
         this.userService = userService;
         this.userMapper=userMapper;
-
 
         conigureGridCrud();
         configureFilter();

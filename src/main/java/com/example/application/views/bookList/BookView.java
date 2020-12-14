@@ -1,4 +1,4 @@
-package com.example.application.views.bookMenu;
+package com.example.application.views.bookList;
 
 import com.example.application.domain.Book;
 import com.example.application.domain.BookStatus;
@@ -23,6 +23,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.vaadin.crudui.crud.impl.GridCrud;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 
 @Route(value = "empty", layout = MainView.class)
@@ -34,11 +35,16 @@ public class BookView extends VerticalLayout {
     Button button1 = new Button("Wypożycz");
     Label label = new Label();
 
+    private TextField addBookToUser = new TextField();
+    Button AddBookToUser = new Button("AddBookToUser");
+    Button returnBook = new Button("ReturnBook");
+
     GridCrud<Book> crud = new GridCrud<>(Book.class);
 
     private Binder<Book> binder = new Binder<>(Book.class);
 
     HorizontalLayout horizontalLayout = new HorizontalLayout();
+    HorizontalLayout horizontalLayout1 = new HorizontalLayout();
 
     private TextField filterText = new TextField();
 
@@ -59,14 +65,19 @@ public class BookView extends VerticalLayout {
         configureGridCrud();
 
         horizontalLayout.add(button, button1, label);
+        horizontalLayout1.add(addBookToUser, AddBookToUser,returnBook);
         button.addClickListener(buttonClickEvent -> label.setText("Dodano do ulubionych"));
 
         button1.addClickListener(buttonClickEvent -> wypozycz());
 
+        AddBookToUser.addClickListener(buttonClickEvent -> addBookToUser());
+
+        returnBook.addClickListener(buttonClickEvent -> returnBook());
+
 
         configureFilter();
 
-        add(filterText, crud,label, horizontalLayout);
+        add(filterText,horizontalLayout1, crud,label, horizontalLayout);
         setSizeFull();
 
 
@@ -107,24 +118,24 @@ public class BookView extends VerticalLayout {
 
         String name = (VaadinServletService.getCurrentServletRequest().getUserPrincipal().getName());
 
-        User user = userService.findByUserName(name);
+        Optional<User> user = userService.findByUserName(name);
 
         Book book = binder.getBean();
 
         if(book.getBookStatus() == BookStatus.Dostępna) {
 
-            book.setLocalDate1(LocalDate.now().plusDays(14));
-            book.setUser(user);
+            book.setDeadline(LocalDate.now().plusDays(14));
+            book.setUser(user.get());
             book.setBookStatus(BookStatus.Wypożyczona);
 
-            bookService.add(book);
+            bookService.update(book);
 
             emailService.send(new Mail(
                     userService.getUser().getEmail(),
                     "Borrowed book",
                     "You borrowed a book : "+book.getTitle()+
                             "\n"+
-                    "Deadline: "+book.getLocalDate1()
+                    "Deadline: "+book.getDeadline()
 
             ));
 
@@ -153,6 +164,25 @@ public class BookView extends VerticalLayout {
     private void updateList() {
         crud.getGrid().setItems(bookService.findAllFilter(filterText.getValue()));
 
+    }
+    public void addBookToUser () {
+        Book book = binder.getBean();
+
+      Optional<User> userName = (userService.findByUserName(addBookToUser.getValue()));
+
+
+
+      book.setUser(userName.get());
+        bookService.update(book);
+
+        crud.refreshGrid();
+    }
+    public void returnBook() {
+        Book book = binder.getBean();
+        book.setUser(null);
+        book.setBookStatus(BookStatus.Dostępna);
+        bookService.update(book);
+        crud.refreshGrid();
     }
 
 

@@ -32,8 +32,8 @@ public class BookMapper {
                 book.getAuthor(),
                 book.getBookType(),
                 book.getBookStatus(),
-                book.getLocalDate(),
-                book.getLocalDate1(),
+                book.getCreated(),
+                book.getDeadline(),
                 userMapper.mapToUserDto(book.getUser())
         );
     }

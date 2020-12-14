@@ -1,5 +1,5 @@
 
-package com.example.application.views.helloworld;
+package com.example.application.domain.bookSearch;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

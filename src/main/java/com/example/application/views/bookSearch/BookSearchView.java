@@ -1,5 +1,6 @@
-package com.example.application.views.helloworld;
+package com.example.application.views.bookSearch;
 
+import com.example.application.domain.bookSearch.VolumeInfo;
 import com.example.application.views.main.MainView;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dependency.CssImport;
@@ -18,9 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @PageTitle("BookSearch")
 @CssImport(value = "./styles/views/helloworld/google.css")
 @RouteAlias(value = "", layout = MainView.class)
-public class HelloWorldView extends VerticalLayout {
+public class BookSearchView extends VerticalLayout {
 
-    private String suggestTitle;
+
 
 
     Grid<VolumeInfo> grid = new Grid<>(VolumeInfo.class);
@@ -31,7 +32,7 @@ public class HelloWorldView extends VerticalLayout {
     TextField textField = new TextField();
     Button button = new Button("Search");
 
-    H1 h1 = new H1("GOOGLE BOOKS SEARCH API");
+    H1 h1 = new H1("SEARCH BOOKS");
 
     Grid<VolumeInfo> bookGrid = new Grid<>(VolumeInfo.class);
 
@@ -42,7 +43,7 @@ public class HelloWorldView extends VerticalLayout {
     private BookSearchService bookSearchService;
 
     @Autowired
-    public HelloWorldView(BookSearchService bookSearchService) {
+    public BookSearchView(BookSearchService bookSearchService) {
         this.bookSearchService = bookSearchService;
         addClassName("user-view");
         bookGrid.setColumns("authors", "publisher", "publishedDate", "categories", "pageCount");
@@ -74,7 +75,7 @@ public class HelloWorldView extends VerticalLayout {
             bookGrid.setItems(bookSearchService.getBooks(textField.getValue()));
             description.setText("Description: " +
                     String.valueOf(bookSearchService.getBooks(textField.getValue()).getDescription()));
-            name.setText(bookSearchService.getBooks(textField.getValue()).getTitle());
+            name.setText("Title: "+bookSearchService.getBooks(textField.getValue()).getTitle());
 
 
         }
