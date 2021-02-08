@@ -165,6 +165,9 @@
         </dependency>
 
 
+    </dependencies>
+
+
         <!-- Baza Danych -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

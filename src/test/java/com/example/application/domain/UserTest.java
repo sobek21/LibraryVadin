@@ -1,8 +1,11 @@
 package com.example.application.domain;
 
 
-import com.example.application.repository.BookRepository;
-import com.example.application.repository.UserRepository;
+import com.example.library.Application;
+import com.example.library.domain.Book;
+import com.example.library.domain.User;
+import com.example.library.repository.BookRepository;
+import com.example.library.repository.UserRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 import java.util.Optional;
 
-@SpringBootTest
+@SpringBootTest(classes = Application.class)
 @RunWith(SpringRunner.class)
 @Transactional
 public class UserTest {

@@ -1,6 +1,8 @@
 package com.example.application.domain;
 
-import com.example.application.repository.BookRepository;
+import com.example.library.Application;
+import com.example.library.domain.Book;
+import com.example.library.repository.BookRepository;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -8,13 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-@SpringBootTest
+
+@SpringBootTest(classes = Application.class)
 @RunWith(SpringRunner.class)
 @Transactional
+
 public class BookTest {
 
     @Autowired
-    private BookRepository bookDao;
+   public BookRepository bookDao;
 
     @Test
     public void saveTest() {

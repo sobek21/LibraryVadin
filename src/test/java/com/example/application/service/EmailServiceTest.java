@@ -1,7 +1,8 @@
 package com.example.application.service;
 
 
-import com.example.application.domain.Mail;
+import com.example.library.domain.Mail;
+import com.example.library.service.EmailService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
