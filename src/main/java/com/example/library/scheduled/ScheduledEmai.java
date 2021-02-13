@@ -24,7 +24,6 @@ public class ScheduledEmai {
 
     @Scheduled(cron = "0 0 12 * * *")
 
-
     public void checkDeadlineBooks() {
    List<Book> bookList = bookService.findAll().stream()
            .filter(a -> a.getDeadline().equals(LocalDate.now().minusDays(1)))
