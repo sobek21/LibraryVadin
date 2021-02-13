@@ -5,6 +5,7 @@ import com.example.library.domain.Mail;
 import com.example.library.service.BookService;
 import com.example.library.service.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -21,10 +22,10 @@ public class ScheduledEmai {
     private EmailService emailService;
 
 
-//@Scheduled(cron = "0 0 12 * * *")
-//@Scheduled(fixedRate = 5000)
+    @Scheduled(cron = "0 0 12 * * *")
 
-    public void test() {
+
+    public void checkDeadlineBooks() {
    List<Book> bookList = bookService.findAll().stream()
            .filter(a -> a.getDeadline().equals(LocalDate.now().minusDays(1)))
             .collect(Collectors.toList());
