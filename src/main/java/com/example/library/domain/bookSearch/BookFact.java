@@ -13,7 +13,6 @@ public class BookFact {
     @Expose
     private List<Item> items = null;
 
-
     public List<Item> getItems() {
         return items;
     }
@@ -21,7 +20,6 @@ public class BookFact {
     public void setItems(List<Item> items) {
         this.items = items;
     }
-
 
     @Override
     public String toString() {

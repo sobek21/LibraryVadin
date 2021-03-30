@@ -26,18 +26,15 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 
-@Route(value = "empty", layout = MainView.class)
+@Route(value = "bookList", layout = MainView.class)
 @PageTitle("Book List")
 @CssImport("./styles/views/empty/empty-view.css")
 public class BookView extends VerticalLayout {
 
-
     Button button1 = new Button("Borrow the book");
     Label label = new Label();
 
-    //private TextField addBookToUser = new TextField();
-    //Button AddBookToUser = new Button("AddBookToUser");
-    Button returnBook = new Button("ReturnBook");
+    Button returnBook = new Button("Return Book");
 
     GridCrud<Book> crud = new GridCrud<>(Book.class);
 
@@ -60,46 +57,33 @@ public class BookView extends VerticalLayout {
         this.userService = userService;
         this.emailService=emailService;
 
-
-
         configureGridCrud();
 
         horizontalLayout.add( button1, label,returnBook);
-       // horizontalLayout1.add(addBookToUser, AddBookToUser,returnBook);
-
 
         button1.addClickListener(buttonClickEvent -> wypozycz());
 
-       // AddBookToUser.addClickListener(buttonClickEvent -> addBookToUser());
 
         returnBook.addClickListener(buttonClickEvent -> returnBook());
-
 
         configureFilter();
 
         add(filterText, crud,label, horizontalLayout);
         setSizeFull();
 
-
         crud.getGrid().asSingleSelect().addValueChangeListener(event -> binder.setBean(event.getValue()));
-
 
     }
 
     public void configureGridCrud() {
 
-
         crud.setAddOperation(bookService::add);
-       // crud.setAddOperationVisible(userService.getRole().equals("ADMIN"));
         crud.setFindAllOperation(bookService::findAll);
         crud.setDeleteOperation(bookService::delete);
-       // crud.setDeleteOperationVisible(userService.getRole().equals("ADMIN"));
         crud.setUpdateOperation(bookService::update);
-       // crud.setUpdateOperationVisible(userService.getRole().equals("ADMIN"));
 
         crud.getGrid().getColumnByKey("bookID").setVisible(false);
         crud.getGrid().setHeightByRows(true);
-
 
         crud.getCrudFormFactory().setUseBeanValidation(true);
         crud.getGrid().removeColumnByKey("user");
@@ -132,23 +116,20 @@ public class BookView extends VerticalLayout {
             bookService.update(book);
 
             emailService.send(new Mail(
+
                     userService.getUser().getEmail(),
+
                     "Borrowed book",
                     "You borrowed a book : "+book.getTitle()+
                             "\n"+
                     "Deadline: "+book.getDeadline()
-
             ));
-
-
+            label.setText("Success");
             crud.refreshGrid();
         }else {
-            label.setText("Niedostepna"+book.getTitle()+userService.getRole());
+            label.setText("Not available");
         }
-
-
     }
-
     private void configureFilter() {
         filterText.setPlaceholder("Filter by name or author...");
         filterText.setClearButtonVisible(true);
@@ -156,21 +137,10 @@ public class BookView extends VerticalLayout {
         filterText.addValueChangeListener(e -> updateList());
     }
 
-
     private void updateList() {
         crud.getGrid().setItems(bookService.findAllFilter(filterText.getValue()));
 
     }
-   // public void addBookToUser () {
-     //   Book book = binder.getBean();
-
-    //  Optional<User> userName = (userService.findByUserName(addBookToUser.getValue()));
-
-     // book.setUser(userName.get());
-      //  bookService.update(book);
-
-      //  crud.refreshGrid();
-  //  }
     public void returnBook() {
         Book book = binder.getBean();
         book.setUser(null);
@@ -178,6 +148,4 @@ public class BookView extends VerticalLayout {
         bookService.update(book);
         crud.refreshGrid();
     }
-
-
 }

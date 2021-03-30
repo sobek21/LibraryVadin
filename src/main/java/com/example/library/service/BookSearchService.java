@@ -15,8 +15,6 @@ import javax.validation.constraints.NotNull;
 @Service
 public class BookSearchService {
 
-
-
     private RestTemplate restTemplate;
 
     @NotNull
@@ -25,11 +23,9 @@ public class BookSearchService {
 
     private String url = "https://www.googleapis.com/books/v1/volumes?q=" + bookTitle + "&key=AIzaSyDQ5S3dnCdR3YKAviYoyqsQFCekLK-1cZs&startIndex=1&maxResults=1";
 
-
     public BookSearchService() {
         super();
     }
-
 
     @Autowired
     public BookSearchService(RestTemplate restTemplate) {
@@ -38,10 +34,8 @@ public class BookSearchService {
 
     }
 
-
     public VolumeInfo getBooks(String bookTitle) {
         this.bookTitle = bookTitle;
-
 
         ResponseEntity<BookFact> bookFact = restTemplate.exchange(
                 "https://www.googleapis.com/books/v1/volumes?q=" +

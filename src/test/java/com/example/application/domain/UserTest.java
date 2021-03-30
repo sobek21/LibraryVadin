@@ -58,7 +58,7 @@ public class UserTest {
         User user = new User();
         user.setFirstName("Test");
         user.setLastName("Test");
-        user.setPassword("Hasło");
+        user.setPassword("Hasło!@123Asas");
         user.setEmail("test@o2.pl");
         user.setUsername("Michał");
 
@@ -136,7 +136,7 @@ public class UserTest {
         User user = new User();
         user.setFirstName("Test");
         user.setLastName("Test");
-        user.setPassword("Hasło");
+        user.setPassword("Hasło!@123Asas");
         user.setEmail("test@o2.pl");
         user.setUsername("Mateusz");
 
