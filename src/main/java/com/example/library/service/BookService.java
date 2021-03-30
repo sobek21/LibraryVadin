@@ -14,8 +14,6 @@ public class BookService implements CrudListener<Book> {
     private BookRepository bookRepository;
     private UserService userService;
 
-
-
     @Autowired
     public BookService(BookRepository bookRepository, UserService userService) {
         this.userService = userService;

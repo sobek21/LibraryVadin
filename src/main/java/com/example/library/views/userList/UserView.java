@@ -26,8 +26,6 @@ public class UserView extends VerticalLayout {
 
     private BookService bookService;
 
-
-
     @Autowired
     public UserView(UserService userService, BookService bookService) {
         this.bookService = bookService;
@@ -42,26 +40,29 @@ public class UserView extends VerticalLayout {
     }
 
     public void conigureGridCrud() {
-        crud.setAddOperation(userService::add);
-        crud.setFindAllOperation(userService::findAll);
-        crud.setDeleteOperation(userService::delete);
-        crud.setUpdateOperation(userService::update);
+
+            crud.setAddOperation(userService::add);
+            crud.setFindAllOperation(userService::findAll);
+            crud.setDeleteOperation(userService::delete);
+            crud.setUpdateOperation(userService::update);
+            //Visible
+            crud.setAddOperationVisible(userService.getRole().equals("Admin"));
+            crud.setDeleteOperationVisible(userService.getRole().equals("Admin"));
+            crud.setUpdateOperationVisible(userService.getRole().equals("Admin"));
+
         crud.getCrudFormFactory().setUseBeanValidation(true);
         crud.getGrid().setHeightByRows(true);
 
         crud.getGrid().removeColumnByKey("books");
         crud.getGrid().removeColumnByKey("userID");
 
-
     }
-
     private void configureFilter() {
         filterText.setPlaceholder("Filter by email or username...");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
     }
-
 
     private void updateList() {
         crud.getGrid().setItems(userService.findAllFilter(filterText.getValue()));

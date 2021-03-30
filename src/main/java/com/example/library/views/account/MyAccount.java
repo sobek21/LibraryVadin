@@ -31,12 +31,7 @@ public class MyAccount extends VerticalLayout {
 
     Button edit = new Button("Edit");
 
-
-
-
-
   private UserService userService;
-
 
 
     public MyAccount(UserService userService) {

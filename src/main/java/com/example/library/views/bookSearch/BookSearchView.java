@@ -22,11 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 @RouteAlias(value = "", layout = MainView.class)
 public class BookSearchView extends VerticalLayout {
 
-
-
-
     Grid<VolumeInfo> grid = new Grid<>(VolumeInfo.class);
-
 
     Label name = new Label();
     Label description = new Label();
@@ -40,7 +36,6 @@ public class BookSearchView extends VerticalLayout {
     VerticalLayout verticalLayout = new VerticalLayout();
     HorizontalLayout horizontalLayout = new HorizontalLayout();
 
-
     private BookSearchService bookSearchService;
 
     @Autowired
@@ -53,18 +48,15 @@ public class BookSearchView extends VerticalLayout {
         verticalLayout.add(bookGrid);
         verticalLayout.setSizeFull();
 
-
         horizontalLayout.add(textField, button);
 
         setAlignSelf(Alignment.CENTER, horizontalLayout);
         setAlignSelf(Alignment.CENTER, h1);
 
-
         button.addClickListener(buttonClickEvent -> refresh());
 
         add(h1, horizontalLayout, name, verticalLayout);
         add(description);
-
 
     }
 
@@ -77,7 +69,6 @@ public class BookSearchView extends VerticalLayout {
             description.setText("Description: " +
                     String.valueOf(bookSearchService.getBooks(textField.getValue()).getDescription()));
             name.setText("Did you mean? : "+bookSearchService.getBooks(textField.getValue()).getTitle());
-
 
         }
     }

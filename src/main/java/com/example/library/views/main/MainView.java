@@ -40,8 +40,6 @@ public class MainView extends AppLayout {
     private final Tabs menu;
     private H1 viewTitle;
 
-
-
     public MainView() {
 
         setPrimarySection(Section.DRAWER);
@@ -52,11 +50,6 @@ public class MainView extends AppLayout {
 
     private Component createHeaderContent() {
         Anchor logout = new Anchor("logout", "Log out");
-
-
-
-        // addToNavbar(header);
-
 
         HorizontalLayout layout = new HorizontalLayout();
         layout.setId("header");
